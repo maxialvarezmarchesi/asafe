@@ -1,0 +1,21 @@
+{
+    "name": "@maxialvarez/asafe-config",
+    "version": "1.0.0",
+    "description": "A-SAFE Digital Config loader",
+    "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "main": "dist/src/index.js",
+    "scripts": {
+        "build": "tsc --build",
+        "start": "node ./dist/src/index.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.12",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    }
+}

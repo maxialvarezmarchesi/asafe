@@ -1,0 +1,22 @@
+{
+    "name": "@maxialvarez/asafe-server",
+    "version": "1.0.0",
+    "main": "dist/src/index.js",
+    "description": "A-SAFE Digital Config server",
+    "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build": "tsc --build",
+        "start": "node ./dist/src/index.js"
+    },
+    "dependencies": {
+        "@maxialvarez/asafe-config": "*",
+        "fastify": "^4.28.1"
+    },
+    "devDependencies": {
+        "@types/node": "^20.14.12",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    }
+}

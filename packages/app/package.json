@@ -1,0 +1,12 @@
+{
+  "name": "@maxialvarez/asafe-app",
+  "version": "1.0.0",
+  "description": "A-SAFE Digital ",
+  "main": "dist/src/index.js",
+  "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^5.5.4"
+  }
+}

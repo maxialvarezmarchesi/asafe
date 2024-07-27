@@ -1,0 +1,21 @@
+{
+  "name": "@maxialvarez/asafe",
+  "version": "1.0.0",
+  "description": "A-SAFE Digital ",
+  "main": "dist/src/index.ts",
+  "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc --build",
+    "start": "node ./dist/src/index.js"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.5.4"
+  },
+  "packageManager": "yarn@4.3.1"
+}
