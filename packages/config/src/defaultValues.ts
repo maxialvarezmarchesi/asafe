@@ -1,5 +1,5 @@
 export default  {
-    port: 3000,
+    port: 9000,
     log_enable: false,
     db_uri: '',
     jwt: {

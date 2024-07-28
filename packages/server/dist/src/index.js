@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fastify_1 = __importDefault(require("./fastify"));
+const server_1 = __importDefault(require("./fastify/server"));
 exports.default = {
-    up: () => (0, fastify_1.default)()
+    up: () => (0, server_1.default)()
 };

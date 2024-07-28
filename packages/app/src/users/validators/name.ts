@@ -1,0 +1,1 @@
+export const name = (name: any) => name?.toString().trim() === name && name?.length > 1;

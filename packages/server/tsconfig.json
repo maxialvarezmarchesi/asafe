@@ -106,11 +106,18 @@
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
   "exclude": [
-    "dist/**"
+    "dist/**",
+    "tests/**"
+  ],
+  "include": [
+    "**/*"
   ],
   "references": [
     {
       "path": "../config"
+    },
+    {
+      "path": "../api"
     }
   ]
 }
