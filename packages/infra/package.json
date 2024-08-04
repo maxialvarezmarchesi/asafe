@@ -6,9 +6,19 @@
     "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
     "license": "MIT",
     "private": true,
+    "scripts": {
+        "build": "tsc --build",
+        "migrate": "dotenv -e ../../.env -- npx prisma migrate dev --name init"
+    },
     "devDependencies": {
+        "@prisma/client": "^5.17.0",
         "@types/node": "^20.14.12",
+        "dotenv-cli": "^7.4.2",
+        "prisma": "^5.17.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4"
+    },
+    "dependencies": {
+        "global": "^4.4.0"
     }
 }

@@ -8,7 +8,7 @@ import { BaseUserException } from "./exceptions/BaseUserException";
 
 const repository = new Repository();
 
-export function add(user: User): Results {
+export async function add(user: User): Promise<Results> {
 
     const result = new Results();
 
@@ -17,7 +17,7 @@ export function add(user: User): Results {
         result.addValidationsFailed(userInvalid);
     }
 
-    const userConstraintInvalid = constraintForCreate(user, repository);
+    const userConstraintInvalid = await constraintForCreate(user, repository);
     if (userConstraintInvalid.length) {
         result.addValidationsFailed(userConstraintInvalid);
     }
@@ -27,7 +27,7 @@ export function add(user: User): Results {
     }
 
     try {
-        result.addOneUser(repository.save(user));
+        result.addOneUser(await repository.save(user));
     } catch (error) {
         if (error instanceof BaseUserException) {
             result.addOneValidationFailed(error);

@@ -4,15 +4,12 @@ import defaultValues from './defaultValues';
 // set ENV
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 // load dotenv
-const dotEnvConfig = dotenv.config();
-if (dotEnvConfig.error) {
-    // error, continue with default
-}
+dotenv.config();
 
 export default {
     port: parseInt(process.env.PORT || '', 10) || defaultValues.port,
     log_enable: (process.env.LOG_ENABLE === 'true'),
-    db_uri: process.env.DB_URI || defaultValues.db_uri,
+    db_uri: process.env.DATABASE_URL?.replace("${DB_PASSWORD}", process.env.DB_PASSWORD || '') || defaultValues.db_uri,
     jwt: {
         secret: process.env.JWT_SECRET || defaultValues.jwt.secret,
         algo: process.env.JWT_ALGO || defaultValues.jwt.algo

@@ -1,13 +1,24 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Repository = void 0;
 const Query_1 = require("../Query");
+const asafe_utils_1 = require("@maxialvarez/asafe-utils");
 let data = [];
 class Repository {
     get(query) {
-        // TODO: add behaviour to find for diferents criterias
-        const userFound = data.filter(user => query.match(user));
-        return userFound !== null && userFound !== void 0 ? userFound : [];
+        return __awaiter(this, void 0, void 0, function* () {
+            const userFound = data.filter(user => query.match(user));
+            return new Promise(resolve => resolve(userFound !== null && userFound !== void 0 ? userFound : []));
+        });
     }
     nextId() {
         if (!data.length) {
@@ -17,49 +28,53 @@ class Repository {
         return Math.max(...ids) + 1;
     }
     save(user) {
-        if (!user.id) {
-            user.id = this.nextId();
-        }
-        if (user.password) {
-            user.password = this.encryptPassword(user.password);
-        }
-        data.push(user);
-        return user;
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!user.id) {
+                user.id = this.nextId();
+            }
+            if (user.password) {
+                user.password = (0, asafe_utils_1.hashPassword)(user.password);
+            }
+            data.push(user);
+            return new Promise(resolve => resolve(user));
+        });
     }
     update(user) {
-        // find user
-        const query = new Query_1.Query();
-        query.setId(user.id).setDeleted(false);
-        let userToUpdate = this.get(query)[0];
-        if (user.email) {
-            userToUpdate.email = user.email;
-        }
-        if (user.name) {
-            userToUpdate.name = user.name;
-        }
-        if (user.surname) {
-            userToUpdate.name = user.surname;
-        }
-        if (user.password) {
-            userToUpdate.password = this.encryptPassword(user.password);
-        }
-        return user;
+        return __awaiter(this, void 0, void 0, function* () {
+            // find user
+            const query = new Query_1.Query();
+            query.setId(user.id).setDeleted(false);
+            let userToUpdate = (yield this.get(query))[0];
+            const index = data.indexOf(userToUpdate);
+            if (user.email) {
+                userToUpdate.email = user.email;
+            }
+            if (user.name) {
+                userToUpdate.name = user.name;
+            }
+            if (user.surname) {
+                userToUpdate.name = user.surname;
+            }
+            if (user.password) {
+                userToUpdate.password = (0, asafe_utils_1.hashPassword)(user.password);
+            }
+            data[index] = userToUpdate;
+            return new Promise(resolve => resolve(user));
+        });
     }
     delete(user) {
-        const query = new Query_1.Query();
-        query.setId(user.id).setDeleted(false);
-        let userToDelete = this.get(query)[0];
-        const index = data.indexOf(userToDelete);
-        console.log(index);
-        if (index != -1) {
-            data[index].deleted = true;
-            return true;
-        }
-        return false;
-    }
-    encryptPassword(password) {
-        // TODO use Utils to encrypt
-        return btoa(password.toString());
+        return __awaiter(this, void 0, void 0, function* () {
+            const query = new Query_1.Query();
+            query.setId(user.id).setDeleted(false);
+            let userToDelete = (yield this.get(query))[0];
+            const index = data.indexOf(userToDelete);
+            console.log(index);
+            if (index != -1) {
+                data[index].deleted = true;
+                return true;
+            }
+            return new Promise(resolve => resolve(false));
+        });
     }
 }
 exports.Repository = Repository;

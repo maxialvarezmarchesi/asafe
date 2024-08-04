@@ -4,10 +4,10 @@ import { IRepository } from "../repositories/Irepository";
 import { emailExists, emailExistsInOtherUser } from "./types/email";
 import { idExists } from "./types/id";
 
-export const constraintForCreate = (user: User, repository: IRepository): Array<Error> => {
+export const constraintForCreate = async (user: User, repository: IRepository): Promise<Error[]> => {
     const errors: Array<Error> = [];
 
-    if (emailExists(user.email, repository)) {
+    if (await emailExists(user.email, repository)) {
         errors.push(new EmailExistsException());
     }
 
@@ -15,12 +15,12 @@ export const constraintForCreate = (user: User, repository: IRepository): Array<
 
 }
 
-export const constraintForUpdate = (user: User, repository: IRepository): Array<Error> => {
+export const constraintForUpdate = async (user: User, repository: IRepository): Promise<Error[]> => {
     const errors: Array<Error> = [];
 
-   
+
     /** For send fields */
-    if (user.email && emailExistsInOtherUser(user.email, user.id, repository)) {
+    if (user.email && await emailExistsInOtherUser(user.email, user.id, repository)) {
         errors.push(new EmailExistsException());
     }
 
@@ -29,7 +29,7 @@ export const constraintForUpdate = (user: User, repository: IRepository): Array<
 }
 
 
-export const constraintForRemove = (user: User, repository: IRepository): Array<Error> => {
+export const constraintForRemove = async (user: User, repository: IRepository): Promise<Error[]> => {
 
     const errors: Array<Error> = [];
 
@@ -37,6 +37,6 @@ export const constraintForRemove = (user: User, repository: IRepository): Array<
     if (!idExists(user.id, repository)) {
         errors.push(new IdException());
     }
-    return errors;
+    return new Promise(resolve => resolve(errors));
 
 }

@@ -4,11 +4,11 @@ import { Repository } from "./repositories/Service";
 
 const repository = new Repository();
 
-export function get(id: Number): Results {
+export async function get(id: Number): Promise<Results> {
     const query = new Query();
     query.setId(id).setDeleted(false);
     const results = new Results();
-    results.addUsers(repository.get(query));
+    results.addUsers(await repository.get(query));
     return results;
 }
 

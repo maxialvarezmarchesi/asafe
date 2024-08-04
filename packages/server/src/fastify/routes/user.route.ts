@@ -6,27 +6,26 @@ const basePath = "/user";
 
 type IParamsGet = { Params: { id: Number } };
 
-const doGet = (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
+const doGet = async (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
     const { id } = request.params;
-    return reply.send(ApiUserService.get(id));
+    return reply.send(await ApiUserService.get(id));
 }
 
-const doPost = (request: FastifyRequest, reply: FastifyReply) => {
-
+const doPost = async (request: FastifyRequest, reply: FastifyReply) => {
     const data = request.body;
-    return reply.send(ApiUserService.add(data));
+    return reply.send(await ApiUserService.add(data));
 }
 
-const doPut = (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
+const doPut = async (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
     const { id } = request.params;
     const data = request.body;
-    return reply.send(ApiUserService.update(id, data));
+    return reply.send(await ApiUserService.update(id, data));
 }
 
-const doDelete = (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
+const doDelete = async (request: FastifyRequest<IParamsGet>, reply: FastifyReply) => {
     const { id } = request.params;
     const data = request.body;
-    return reply.send(ApiUserService.remove(id, data));
+    return reply.send(await ApiUserService.remove(id, data));
 }
 
 export type IRoutesOptions = RouteOptions<Server, IncomingMessage, ServerResponse, IParamsGet>;

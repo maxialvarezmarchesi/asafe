@@ -8,11 +8,11 @@ import { validatedForUpdate } from "./validators/service";
 
 const repository = new Repository();
 
-export function update(user: User): Results {
+export async function update(user: User): Promise<Results> {
 
     const result = new Results();
     // find user
-    const userToUpdate = get(Number(user.id));
+    const userToUpdate = await get(Number(user.id));
     if (!userToUpdate.getUsers().length) {
         result.addOneValidationFailed(new IdNotFoundException());
         return result;
@@ -25,7 +25,7 @@ export function update(user: User): Results {
 
     }
 
-    const userConstraintInvalid = constraintForUpdate(user, repository);
+    const userConstraintInvalid = await constraintForUpdate(user, repository);
     if (userConstraintInvalid.length) {
         result.addValidationsFailed(userConstraintInvalid);
 
@@ -36,11 +36,12 @@ export function update(user: User): Results {
     }
 
     try {
-        result.addOneUser(repository.update(user));
+        result.addOneUser(await repository.update(user));
     } catch (error) {
         if (error instanceof Error) {
             result.addOneValidationFailed(error);
         } else {
+            console.log(error);
             result.addOneValidationFailed(new UncaughtError());
         }
     }

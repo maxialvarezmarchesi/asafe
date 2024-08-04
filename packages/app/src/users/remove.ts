@@ -9,11 +9,11 @@ import { validatedForRemove } from "./validators/service";
 
 const repository = new Repository();
 
-export function remove(user: User): Results {
+export async function remove(user: User): Promise<Results> {
     const result = new Results();
 
     // find user
-    const userToRemove = get(Number(user.id));
+    const userToRemove = await get(Number(user.id));
     if (!userToRemove.getUsers().length) {
         result.addOneValidationFailed(new IdNotFoundException());
         return result;
@@ -24,7 +24,7 @@ export function remove(user: User): Results {
         result.addValidationsFailed(userInvalid);
     }
 
-    const userConstraintInvalid = constraintForRemove(user, repository);
+    const userConstraintInvalid = await constraintForRemove(user, repository);
     if (userConstraintInvalid.length) {
         result.addValidationsFailed(userConstraintInvalid);
     }
@@ -34,7 +34,7 @@ export function remove(user: User): Results {
     }
 
     try {
-        if (!repository.delete(user)) {
+        if (!await repository.delete(user)) {
             throw new NotDeleted();
         }
     } catch (error) {

@@ -1,1 +1,1 @@
-export { Repository } from "./memory/repository";
+export { Repository } from "./postgresql/repository";

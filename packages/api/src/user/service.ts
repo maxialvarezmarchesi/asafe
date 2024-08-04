@@ -2,14 +2,14 @@ import { UserService, Entity as User } from "@maxialvarez/asafe-app";
 import { presentTransaction, presentList, userType } from "./presenter";
 
 
-const get = (id: Number): Array<userType> => {
+const get = async (id: Number): Promise<userType[]> => {
     return presentList(
-        UserService.get(id)
+        await UserService.get(id)
     );
 };
 
 
-const add = (data: any) => {
+const add = async (data: any) => {
 
     const user = new User();
 
@@ -17,11 +17,11 @@ const add = (data: any) => {
     user.surname = data.surname;
     user.email = data.email;
     user.password = data.password;
-
-    return presentTransaction(UserService.add(user))
+    let result = await UserService.add(user);
+    return presentTransaction(result)
 }
 
-const update = (id: Number, data: any) => {
+const update = async (id: Number, data: any) => {
 
     const user = new User();
 
@@ -31,15 +31,17 @@ const update = (id: Number, data: any) => {
     user.email = data?.email;
     user.password = data?.password;
 
-    return presentTransaction(UserService.update(user))
+    let result = await UserService.update(user);
+    return presentTransaction(result)
 }
 
-const remove = (id: Number, data: any) => {
+const remove = async (id: Number, data: any) => {
 
     const user = new User();
     user.id = id
+    const result = await UserService.remove(user);
 
-    return presentTransaction(UserService.remove(user))
+    return presentTransaction(result)
 }
 
 export const service = {

@@ -2,17 +2,17 @@ import { IRepository } from "../../repositories/Irepository";
 import { Query } from "../../repositories/Query";
 
 
-export const emailExists = (email: any, repository: IRepository): Boolean => {
+export const emailExists = async (email: any, repository: IRepository): Promise<Boolean> => {
     const query = new Query();
     query.setDeleted(false).setEmail(String(email));
 
-    return repository.get(query).length > 0;
+    return (await repository.get(query)).length > 0;
 }
 
-export const emailExistsInOtherUser = (email: any, id: any, repository: IRepository): Boolean => {
+export const emailExistsInOtherUser = async (email: any, id: any, repository: IRepository): Promise<Boolean> => {
     const query = new Query();
     query.setDeleted(false).setEmail(String(email));
-    const usersList = repository.get(query);
+    const usersList = await repository.get(query);
 
     // not exists email in users
     if (!usersList.length) {

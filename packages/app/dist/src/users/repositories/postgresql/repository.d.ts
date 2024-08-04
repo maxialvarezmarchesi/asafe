@@ -2,9 +2,9 @@ import { User } from "../../entities/User";
 import { IRepository } from "../Irepository";
 import { Query } from "../Query";
 export declare class Repository implements IRepository {
-    private data;
-    get(query: Query): Array<User>;
-    save(user: User): User;
-    update(user: User): User;
-    delete(user: User): boolean;
+    get(query: Query): Promise<User[]>;
+    nextId(): Number;
+    save(user: User): Promise<User>;
+    update(user: User): Promise<User>;
+    delete(user: User): Promise<boolean>;
 }

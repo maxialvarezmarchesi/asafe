@@ -1,16 +1,16 @@
 import { User } from "../../entities/User";
 import { IRepository } from "../Irepository";
 import { Query } from "../Query";
+import { hashPassword } from "@maxialvarez/asafe-utils";
 
 let data: Array<User> = [];
-    
-export class Repository implements IRepository {
-   
 
-    get(query: Query): Array<User> {
-        // TODO: add behaviour to find for diferents criterias
+export class Repository implements IRepository {
+
+
+    async get(query: Query): Promise<User[]> {
         const userFound = data.filter(user => query.match(user));
-        return userFound ?? [];
+        return new Promise(resolve => resolve(userFound ?? []));
     }
 
     nextId(): Number {
@@ -24,22 +24,23 @@ export class Repository implements IRepository {
     }
 
 
-    save(user: User): User {
+    async save(user: User): Promise<User> {
         if (!user.id) {
             user.id = this.nextId();
         }
         if (user.password) {
-            user.password = this.encryptPassword(user.password);
+            user.password = hashPassword(user.password);
         }
         data.push(user);
-        return user;
+        return new Promise(resolve => resolve(user));
     }
 
-    update(user: User): User {
+    async update(user: User): Promise<User> {
         // find user
         const query = new Query();
         query.setId(user.id).setDeleted(false);
-        let userToUpdate: User = this.get(query)[0];
+        let userToUpdate: User = (await this.get(query))[0];
+        const index = data.indexOf(userToUpdate);
 
         if (user.email) {
             userToUpdate.email = user.email;
@@ -54,29 +55,27 @@ export class Repository implements IRepository {
         }
 
         if (user.password) {
-            userToUpdate.password = this.encryptPassword(user.password);
+            userToUpdate.password = hashPassword(user.password);
         }
 
-        return user;
+        data[index] = userToUpdate;
+        return new Promise(resolve => resolve(user));
     }
 
-    delete(user: User): boolean {
+    async delete(user: User): Promise<boolean> {
 
         const query = new Query();
         query.setId(user.id).setDeleted(false);
-        let userToDelete: User = this.get(query)[0];
-        
+        let userToDelete: User = (await this.get(query))[0];
+
         const index = data.indexOf(userToDelete);
         console.log(index);
         if (index != -1) {
             data[index].deleted = true;
             return true;
         }
-        return false;
+        return new Promise(resolve => resolve(false));
     }
 
-    encryptPassword(password: String): String {
-        // TODO use Utils to encrypt
-        return btoa(password.toString());
-    }
+
 }
