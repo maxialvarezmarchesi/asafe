@@ -30,7 +30,7 @@ const update = (id: Number, data: any) => {
     user.surname = data?.surname;
     user.email = data?.email;
     user.password = data?.password;
-    console.log(user);
+
     return presentTransaction(UserService.update(user))
 }
 
@@ -38,7 +38,6 @@ const remove = (id: Number, data: any) => {
 
     const user = new User();
     user.id = id
-console.log(user);
 
     return presentTransaction(UserService.remove(user))
 }

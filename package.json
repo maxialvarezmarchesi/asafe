@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc --build",
     "start": "node ./dist/src/index.js",
+    "up": "yarn run build && yarn run start",
     "dev": "nodemon0;"
   },
   "workspaces": [

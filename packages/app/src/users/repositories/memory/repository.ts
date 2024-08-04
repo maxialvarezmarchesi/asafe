@@ -2,22 +2,23 @@ import { User } from "../../entities/User";
 import { IRepository } from "../Irepository";
 import { Query } from "../Query";
 
+let data: Array<User> = [];
+    
 export class Repository implements IRepository {
-    private data: Array<User> = [];
-
+   
 
     get(query: Query): Array<User> {
         // TODO: add behaviour to find for diferents criterias
-        const userFound = this.data.filter(user => query.match(user));
+        const userFound = data.filter(user => query.match(user));
         return userFound ?? [];
     }
 
     nextId(): Number {
 
-        if (!this.data.length) {
+        if (!data.length) {
             return 1;
         }
-        const ids = this.data.map((user: User) => parseInt(user?.id?.toString() ?? "1"));
+        const ids = data.map((user: User) => parseInt(user?.id?.toString() ?? "1"));
 
         return Math.max(...ids) + 1;
     }
@@ -30,7 +31,7 @@ export class Repository implements IRepository {
         if (user.password) {
             user.password = this.encryptPassword(user.password);
         }
-        this.data.push(user);
+        data.push(user);
         return user;
     }
 
@@ -53,23 +54,29 @@ export class Repository implements IRepository {
         }
 
         if (user.password) {
-            userToUpdate.name = this.encryptPassword(user.password);
+            userToUpdate.password = this.encryptPassword(user.password);
         }
 
         return user;
     }
 
-    encryptPassword(password: String): String {
-        // TODO use Utils to encrypt
-        return btoa(password.toString());
-    }
-
     delete(user: User): boolean {
-        const index = this.data.indexOf(user, 0);
+
+        const query = new Query();
+        query.setId(user.id).setDeleted(false);
+        let userToDelete: User = this.get(query)[0];
+        
+        const index = data.indexOf(userToDelete);
+        console.log(index);
         if (index != -1) {
-            this.data[index].deleted = true;
+            data[index].deleted = true;
             return true;
         }
         return false;
+    }
+
+    encryptPassword(password: String): String {
+        // TODO use Utils to encrypt
+        return btoa(password.toString());
     }
 }

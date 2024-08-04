@@ -1,9 +1,12 @@
 import { User } from "./entities/User";
-import { Results } from "./entities/Results";
+import { get } from "./get";
+import { add } from "./add";
+import { update } from "./update";
+import { remove } from "./remove";
 export declare const Entity: typeof User;
 export declare const service: {
-    get: (id: Number) => Results;
-    add: (user: User) => Results;
-    update: (user: User) => Results;
-    remove: (user: User) => Results;
+    get: typeof get;
+    add: typeof add;
+    update: typeof update;
+    remove: typeof remove;
 };

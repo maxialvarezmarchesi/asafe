@@ -5,7 +5,6 @@ const Query_1 = require("../repositories/Query");
 const emailExists = (email, repository) => {
     const query = new Query_1.Query();
     query.setDeleted(false).setEmail(String(email));
-    console.log(repository.get(query).length);
     return repository.get(query).length > 0;
 };
 exports.emailExists = emailExists;

@@ -21,13 +21,11 @@ const update = (id, data) => {
     user.surname = data === null || data === void 0 ? void 0 : data.surname;
     user.email = data === null || data === void 0 ? void 0 : data.email;
     user.password = data === null || data === void 0 ? void 0 : data.password;
-    console.log(user);
     return (0, presenter_1.presentTransaction)(asafe_app_1.UserService.update(user));
 };
 const remove = (id, data) => {
     const user = new asafe_app_1.Entity();
     user.id = id;
-    console.log(user);
     return (0, presenter_1.presentTransaction)(asafe_app_1.UserService.remove(user));
 };
 exports.service = {

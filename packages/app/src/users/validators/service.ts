@@ -1,4 +1,4 @@
-import { IdException, EmailException, EmailExistsException, PasswordException, NameException, SurnameException, IdNotExistsException } from "../exceptions/Exceptions";
+import { IdException, EmailException, EmailExistsException, PasswordException, NameException, SurnameException, IdNotFoundException } from "../exceptions/Exceptions";
 import { User } from "../entities/User"
 import { id as isValidId } from "./types/id";
 import { email as isValidEmail } from "./types/email";
@@ -33,7 +33,6 @@ export const validatedForUpdate = (user: User,): Array<Error> => {
     const errors: Array<Error> = [];
 
     /** Mandatories fields */
-
     if (!isValidId(user.id)) {
         errors.push(new IdException());
     }
@@ -63,7 +62,6 @@ export const validatedForUpdate = (user: User,): Array<Error> => {
 
 export const validatedForRemove = (user: User): Array<Error> => {
     const errors: Array<Error> = [];
-
     if (!isValidId(user.id)) {
         errors.push(new IdException());
     }

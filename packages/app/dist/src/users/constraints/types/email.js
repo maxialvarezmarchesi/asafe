@@ -4,7 +4,6 @@ exports.emailExistsInOtherUser = exports.emailExists = void 0;
 const Query_1 = require("../../repositories/Query");
 const emailExists = (email, repository) => {
     const query = new Query_1.Query();
-    console.log(email);
     query.setDeleted(false).setEmail(String(email));
     return repository.get(query).length > 0;
 };
@@ -17,7 +16,7 @@ const emailExistsInOtherUser = (email, id, repository) => {
     if (!usersList.length) {
         return false;
     }
-    /* find id in userList, to exists in other user, must have length */
-    return usersList.filter(user => user.id = id).length > 0;
+    /* find id in userList other user*/
+    return usersList.filter(user => user.id != id).length > 0;
 };
 exports.emailExistsInOtherUser = emailExistsInOtherUser;

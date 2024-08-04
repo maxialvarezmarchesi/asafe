@@ -37,7 +37,6 @@ export const constraintForRemove = (user: User, repository: IRepository): Array<
     if (!idExists(user.id, repository)) {
         errors.push(new IdException());
     }
-
     return errors;
 
 }
