@@ -1,8 +1,8 @@
 
 import { Query } from "../../../src/users/repositories/Query";
-import { Repository as Repository } from "../../../src/users/repositories/Service";
+import { Repository } from "../../../src/users/repositories/memory/repository";
 
-import { usersData , buildUserFromUserData} from "../dataset";
+import { usersData, buildUserFromUserData } from "../dataset";
 
 
 
@@ -49,7 +49,7 @@ describe("test memory repository", () => {
 
         expect(deleted).toBe(true);
 
-        query.setId(user.id);
+        query.setId(user.id).setDeleted(false);
         const userDeleted = repo.get(query);
 
         expect(userDeleted).toStrictEqual([]);

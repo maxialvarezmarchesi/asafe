@@ -5,6 +5,7 @@ export class User {
     private _password: String = "";
     private _email: String = "";
     private _surname: String = "";
+    private _deleted: Boolean = false;
 
 
     public get id(): Number | null {
@@ -48,6 +49,14 @@ export class User {
     }
 
 
+
+    public get isDeleted(): Boolean {
+        return this._deleted;
+    }
+
+    public set deleted(value: Boolean) {
+        this._deleted = value;
+    }
 
 
 

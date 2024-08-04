@@ -6,7 +6,7 @@ export class Repository implements IRepository {
     private data: Array<User> = [];
 
     get(query: Query): Array<User> {
-        // TODO: extend behaviour to find for diferent criterias
+        // TODO: add behaviour to find for diferent criterias
         //const userFound = this.data.filter(user => user.id = query.getId());
         return [];
     }
@@ -14,6 +14,10 @@ export class Repository implements IRepository {
     save(user: User): User {
         this.data.push(user);
         return user;
+    }
+    
+    update(user: User): User {
+        throw new Error("Method not implemented.");
     }
 
     delete(user: User): boolean {

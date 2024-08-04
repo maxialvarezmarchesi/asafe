@@ -8,6 +8,7 @@ class User {
         this._password = "";
         this._email = "";
         this._surname = "";
+        this._deleted = false;
     }
     get id() {
         return this._id;
@@ -38,6 +39,12 @@ class User {
     }
     set password(value) {
         this._password = value;
+    }
+    get isDeleted() {
+        return this._deleted;
+    }
+    set deleted(value) {
+        this._deleted = value;
     }
 }
 exports.User = User;

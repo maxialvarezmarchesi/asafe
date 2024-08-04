@@ -1,1 +1,0 @@
-export const password = (password: any) => password.toString() === password && password.length > 1;

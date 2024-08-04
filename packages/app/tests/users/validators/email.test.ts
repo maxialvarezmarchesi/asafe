@@ -1,5 +1,5 @@
 import { emailsData } from "../dataset";
-import { email as emailValidator } from "../../../src/users/validators/email";
+import { email as emailValidator } from "../../../src/users/validators/types/email";
 
 describe('Validate email', () => {
     it("valid", () => {

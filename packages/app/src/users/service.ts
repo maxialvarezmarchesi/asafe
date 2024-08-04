@@ -2,39 +2,105 @@ import { User } from "./entities/User";
 import { Results } from "./entities/Results";
 import { Query } from "./repositories/Query";
 import { Repository } from "./repositories/Service";
-import { userValidator } from "./validators/service";
-import { UncaughtError } from "./validators/exceptions/Exceptions";
+import { validatedForCreate, validatedForRemove, validatedForUpdate } from "./validators/service";
+import { UncaughtError } from "./exceptions/Exceptions";
+import { constraintForCreate, constraintForRemove, constraintForUpdate } from "./constraints/service";
+
+export const Entity = User;
+const repository = new Repository();
 
 export const service = {
 
     get: (id: Number): Results => {
-        const repository = new Repository();
         const query = new Query();
-        query.setId(id);
+        query.setId(id).setDeleted(false);
         const results = new Results();
         results.addUsers(repository.get(query));
         return results;
     },
 
     add: (user: User): Results => {
-        const repository = new Repository();
-        const validation = userValidator(user);
+
         const result = new Results();
 
-        if (!validation.length) {
-            try {
-                result.addOneUser(repository.save(user));
-            } catch (error) {
-                if (error instanceof Error) {
-                    result.addOneValidationFailed(error);
-                } else {
-                    result.addOneValidationFailed(new UncaughtError());
-                }
+        const userInvalid = validatedForCreate(user);
+        if (userInvalid.length) {
+            result.addValidationsFailed(userInvalid);
+        }
+
+        const userConstraintInvalid = constraintForCreate(user, repository);
+        if (userConstraintInvalid.length) {
+            result.addValidationsFailed(userConstraintInvalid);
+        }
+
+        if (result.getValidationsFailed().length) {
+            return result;
+        }
+
+        try {
+            result.addOneUser(repository.save(user));
+        } catch (error) {
+            if (error instanceof Error) {
+                result.addOneValidationFailed(error);
+            } else {
+                result.addOneValidationFailed(new UncaughtError());
             }
-        } else {
-            result.addalidationsFailed(validation);
         }
 
         return result;
+    },
+
+    update: (user: User): Results => {
+        const result = new Results();
+
+        const userInvalid = validatedForUpdate(user);
+        if (userInvalid.length) {
+            result.addValidationsFailed(userInvalid);
+
+        }
+
+        const userConstraintInvalid = constraintForUpdate(user, repository);
+        if (userConstraintInvalid.length) {
+            result.addValidationsFailed(userConstraintInvalid);
+
+        }
+        if (result.getValidationsFailed().length) {
+            return result;
+        }
+
+        try {
+            result.addOneUser(repository.update(user));
+        } catch (error) {
+            if (error instanceof Error) {
+                result.addOneValidationFailed(error);
+            } else {
+                result.addOneValidationFailed(new UncaughtError());
+            }
+        }
+
+
+        return result;
+
+    },
+    remove: (user: User): Results => {
+        const result = new Results();
+
+        const userInvalid = validatedForRemove(user);
+        if (userInvalid.length) {
+            result.addValidationsFailed(userInvalid);
+        }
+
+        const userConstraintInvalid = constraintForRemove(user, repository);
+        if (userConstraintInvalid.length) {
+            result.addValidationsFailed(userConstraintInvalid);
+        }
+
+        if (result.getValidationsFailed().length) {
+            return result;
+        }
+        
+
+        return result;
+
     }
 }

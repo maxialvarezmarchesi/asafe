@@ -1,13 +1,18 @@
 import { Results } from "@maxialvarez/asafe-app/src/users/entities/Results";
-type userType = {
+export type userType = {
     id: Number | null;
     name: String;
     surname: String;
     email: String;
 };
-export type userPresented = {
-    user: userType;
-    errors: Array<Error>;
+type errorType = {
+    message: String;
+    type: String;
 };
-export declare const present: (result: Results) => Array<userPresented>;
+export type userTransactionPresented = {
+    user: userType;
+    errors: Array<errorType>;
+};
+export declare const presentTransaction: (result: Results) => userTransactionPresented;
+export declare const presentList: (result: Results) => Array<userType>;
 export {};

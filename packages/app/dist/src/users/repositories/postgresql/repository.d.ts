@@ -5,5 +5,6 @@ export declare class Repository implements IRepository {
     private data;
     get(query: Query): Array<User>;
     save(user: User): User;
+    update(user: User): User;
     delete(user: User): boolean;
 }

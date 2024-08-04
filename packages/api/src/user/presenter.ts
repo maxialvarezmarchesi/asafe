@@ -1,22 +1,43 @@
 import { Results } from "@maxialvarez/asafe-app/src/users/entities/Results";
-import { User } from "@maxialvarez/asafe-app/src/users/entities/User";
 
-type userType = { id: Number|null, name: String, surname: String, email: String };
-export type userPresented = {
+export type userType = { id: Number | null, name: String, surname: String, email: String };
+type errorType = { message: String, type: String };
+
+export type userTransactionPresented = {
     user: userType
-    errors: Array<Error>
+    errors: Array<errorType>
 };
 
-export const present = (result: Results): Array<userPresented> => {
-    return result.getUsers().map((user: User): userPresented=> {
+export const presentTransaction = (result: Results): userTransactionPresented => {
+    const errors = result.getValidationsFailed().map((error: Error) => {
         return {
-            user: {
-                id: user.id,
-                name: user.name,
-                surname: user.surname,
-                email: user.email
-            },
-            errors: []
+            message: error.message,
+            type: error.name
         }
     });
+
+    const response: userTransactionPresented = {
+        user: result.getUsers()[0],
+        errors
+    }
+    return response;
+}
+
+
+export const presentList = (result: Results): Array<userType> => {
+
+    const response: Array<userType> = [];
+
+    result.getValidationsFailed().map((error: Error) => {
+        return {
+            message: error.message,
+            type: error.name
+        }
+    });
+
+    result.getUsers().forEach(user => {
+        response.push(user);
+    });
+
+    return response;
 }

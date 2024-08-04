@@ -10,7 +10,7 @@ class Results {
         this.validationsFailed.push(error);
         return this;
     }
-    addalidationsFailed(errors) {
+    addValidationsFailed(errors) {
         errors.map(e => this.validationsFailed.push(e));
         return this;
     }

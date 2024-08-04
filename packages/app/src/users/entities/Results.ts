@@ -9,7 +9,7 @@ export class Results {
         return this;
     }
 
-    public addalidationsFailed(errors: Array<Error>): Results {
+    public addValidationsFailed(errors: Array<Error>): Results {
         errors.map(e => this.validationsFailed.push(e));
         return this;
     }

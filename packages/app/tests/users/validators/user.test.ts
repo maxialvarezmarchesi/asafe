@@ -1,24 +1,24 @@
-import { EmailException, IdException } from "../../../src/users/validators/exceptions/Exceptions";
-import { userValidator } from "../../../src/users/validators/service";
+import { EmailException, IdException } from "../../../src/users/exceptions/Exceptions";
+import { validatedForCreate, validatedForUpdate } from "../../../src/users/validators/service";
 import { buildUserFromUserData } from "../dataset";
 
 describe('Validate User', () => {
 
     it("valid", () => {
         const user = buildUserFromUserData(0);
-        expect(userValidator(user)).toStrictEqual([]);
+        expect(validatedForCreate(user)).toStrictEqual([]);
     });
 
     it("invalid email", () => {
         const user = buildUserFromUserData(0);
         user.email = '';
-        expect(userValidator(user)).toStrictEqual([new EmailException()]);
+        expect(validatedForCreate(user)).toStrictEqual([new EmailException()]);
     });
 
     it("invalid id", () => {
         const user = buildUserFromUserData(0);
         user.id = 0;
-        expect(userValidator(user)).toStrictEqual([new IdException()]);
+        expect(validatedForUpdate(user)).toStrictEqual([new IdException()]);
     });
 
     it("invalid id and email", () => {
@@ -26,7 +26,7 @@ describe('Validate User', () => {
         user.id = 0;
         user.email = 'asd-test.com';
         expect(
-            userValidator(user).sort(
+            validatedForUpdate(user).sort(
                 (error1: Error, error2: Error) => error1.name.localeCompare(error2.name)
             )
         ).toStrictEqual(

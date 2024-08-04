@@ -1,1 +1,1 @@
-export {service as UserService} from "./users/service";
+export {service as UserService, Entity} from "./users/service";

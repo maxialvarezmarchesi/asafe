@@ -1,4 +1,4 @@
-import { name as nameValidator } from "../../../src/users/validators/name";
+import { name as nameValidator } from "../../../src/users/validators/types/name";
 
 describe('Validate name', () => {
     it("valid", () => {

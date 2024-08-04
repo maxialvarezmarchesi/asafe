@@ -1,8 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UncaughtError = exports.SurnameException = exports.NameException = exports.PasswordException = exports.EmailException = exports.IdException = void 0;
+exports.UncaughtError = exports.SurnameException = exports.NameException = exports.PasswordException = exports.EmailExistsException = exports.EmailException = exports.IdException = void 0;
 const Email_1 = require("./Email");
 Object.defineProperty(exports, "EmailException", { enumerable: true, get: function () { return Email_1.Email; } });
+const EmailExists_1 = require("./EmailExists");
+Object.defineProperty(exports, "EmailExistsException", { enumerable: true, get: function () { return EmailExists_1.EmailExists; } });
 const Id_1 = require("./Id");
 Object.defineProperty(exports, "IdException", { enumerable: true, get: function () { return Id_1.Id; } });
 const Name_1 = require("./Name");

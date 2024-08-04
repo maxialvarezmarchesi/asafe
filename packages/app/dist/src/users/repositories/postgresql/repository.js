@@ -6,13 +6,16 @@ class Repository {
         this.data = [];
     }
     get(query) {
-        // TODO: extend behaviour to find for diferent criterias
+        // TODO: add behaviour to find for diferent criterias
         //const userFound = this.data.filter(user => user.id = query.getId());
         return [];
     }
     save(user) {
         this.data.push(user);
         return user;
+    }
+    update(user) {
+        throw new Error("Method not implemented.");
     }
     delete(user) {
         const index = this.data.indexOf(user, 0);

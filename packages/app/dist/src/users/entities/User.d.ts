@@ -4,6 +4,7 @@ export declare class User {
     private _password;
     private _email;
     private _surname;
+    private _deleted;
     get id(): Number | null;
     set id(value: Number);
     get name(): String;
@@ -14,4 +15,6 @@ export declare class User {
     set email(value: String);
     get password(): String;
     set password(value: String);
+    get isDeleted(): Boolean;
+    set deleted(value: Boolean);
 }
