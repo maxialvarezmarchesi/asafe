@@ -1,5 +1,6 @@
 import { UserService, Entity as User } from "@maxialvarez/asafe-app";
-import { presentTransaction, presentList, userType } from "./presenter";
+import { presentTransaction, presentList } from "./presenter";
+import { userType } from "../types";
 
 
 const get = async (id: Number): Promise<userType[]> => {

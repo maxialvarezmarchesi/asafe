@@ -1,4 +1,4 @@
-import { userType } from "./presenter";
+import { userType } from "../types";
 export declare const service: {
     get: (id: Number) => Promise<userType[]>;
     add: (data: any) => Promise<import("./presenter").userTransactionPresented>;

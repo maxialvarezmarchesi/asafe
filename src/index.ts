@@ -1,4 +1,4 @@
-import server from "@maxialvarez/asafe-server";
+import server from "@maxialvarez/asafe-server/src";
 
 const main = () => {
     console.log("starting server...");

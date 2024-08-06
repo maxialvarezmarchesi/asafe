@@ -5,5 +5,9 @@ export default  {
     jwt: {
         secret: '',
         algo: 'RS256'
+    },
+    adminCredentials:{
+        email: "",
+        password: ""
     }
 };

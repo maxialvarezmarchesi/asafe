@@ -6,5 +6,9 @@ declare const _default: {
         secret: string;
         algo: string;
     };
+    adminCredentials: {
+        email: string;
+        password: string;
+    };
 };
 export default _default;

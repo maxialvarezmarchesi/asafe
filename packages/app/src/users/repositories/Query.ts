@@ -2,8 +2,11 @@ import { User } from "../entities/User";
 
 export class Query {
 
+   
+
     private id: Number | null = null;
     private email: String | null = null;
+    private passwordEncrypted: String | null = null;
     deleted: Boolean | null = null;
 
     public getId(): Number | null {
@@ -24,6 +27,15 @@ export class Query {
         return this;
     }
 
+    getPasswordEncrypted() {
+        return this.passwordEncrypted
+    }
+    
+    setPasswordEncrypted(passwordEncrypted: String) {
+        this.passwordEncrypted = passwordEncrypted;
+        return this;
+    }
+    
     public getDeleted(): Boolean | null {
         return this.deleted;
     }
@@ -36,8 +48,13 @@ export class Query {
 
     match(user: User): Boolean {
         let found = true;
+
         if (this.getId()) {
             found = found && user.id == this.getId();
+        }
+
+        if(this.getPasswordEncrypted()){
+            found = found && user.password && user.password === this.getPasswordEncrypted();
         }
 
         if (this.getEmail()) {

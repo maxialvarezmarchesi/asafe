@@ -29,7 +29,7 @@ export class Repository implements IRepository {
             user.id = this.nextId();
         }
         if (user.password) {
-            user.password = hashPassword(user.password);
+            user.password = await hashPassword(user.password);
         }
         data.push(user);
         return new Promise(resolve => resolve(user));
@@ -55,7 +55,7 @@ export class Repository implements IRepository {
         }
 
         if (user.password) {
-            userToUpdate.password = hashPassword(user.password);
+            userToUpdate.password = await hashPassword(user.password);
         }
 
         data[index] = userToUpdate;
@@ -69,7 +69,6 @@ export class Repository implements IRepository {
         let userToDelete: User = (await this.get(query))[0];
 
         const index = data.indexOf(userToDelete);
-        console.log(index);
         if (index != -1) {
             data[index].deleted = true;
             return true;

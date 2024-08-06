@@ -36,7 +36,7 @@ class Repository {
     save(user) {
         return __awaiter(this, void 0, void 0, function* () {
             if (user.password) {
-                user.password = (0, asafe_utils_1.hashPassword)(user.password);
+                user.password = yield (0, asafe_utils_1.hashPassword)(user.password);
             }
             let userCreated = yield asafe_infra_1.dbService.user.create({
                 data: {
@@ -63,10 +63,10 @@ class Repository {
                 userToUpdate.name = user.name;
             }
             if (user.surname) {
-                userToUpdate.name = user.surname;
+                userToUpdate.surname = user.surname;
             }
             if (user.password) {
-                userToUpdate.password = (0, asafe_utils_1.hashPassword)(user.password);
+                userToUpdate.password = yield (0, asafe_utils_1.hashPassword)(user.password);
             }
             let updateUser = yield asafe_infra_1.dbService.user.update({
                 where: {
@@ -86,9 +86,6 @@ class Repository {
         return __awaiter(this, void 0, void 0, function* () {
             const query = new Query_1.Query();
             query.setId(user.id).setDeleted(false);
-            console.log({
-                where: queryToWhere(query)
-            });
             let deletedUser = yield asafe_infra_1.dbService.user.delete({
                 where: queryToWhere(query)
             });
@@ -103,10 +100,13 @@ function queryToWhere(query) {
         where.id = Number(query.getId());
     }
     if (query.getEmail()) {
-        where.email = query.getEmail();
+        where.email = {
+            equals: query.getEmail(),
+            mode: 'insensitive'
+        };
     }
     if (query.getDeleted()) {
-        where.email = query.getDeleted();
+        where.delete = query.getDeleted();
     }
     return where;
 }
@@ -118,5 +118,6 @@ function buildUserFromDBResult(userFound) {
     user.surname = ((_b = userFound.surname) === null || _b === void 0 ? void 0 : _b.toString()) || '';
     user.email = ((_c = userFound.email) === null || _c === void 0 ? void 0 : _c.toString()) || '';
     user.deleted = userFound.deleted;
+    user.password = userFound.password;
     return user;
 }

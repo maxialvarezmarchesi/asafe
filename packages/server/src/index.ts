@@ -1,4 +1,4 @@
-import server from "./fastify/server";
+import server from "./fastify/service";
 
 export default {
     up: () => server() 

@@ -1,2 +1,2 @@
-declare const _default: () => void;
-export default _default;
+import { FastifyInstance } from "fastify";
+export declare const server: FastifyInstance;

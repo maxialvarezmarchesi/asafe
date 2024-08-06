@@ -5,6 +5,7 @@ class Query {
     constructor() {
         this.id = null;
         this.email = null;
+        this.passwordEncrypted = null;
         this.deleted = null;
     }
     getId() {
@@ -21,6 +22,13 @@ class Query {
         this.email = value;
         return this;
     }
+    getPasswordEncrypted() {
+        return this.passwordEncrypted;
+    }
+    setPasswordEncrypted(passwordEncrypted) {
+        this.passwordEncrypted = passwordEncrypted;
+        return this;
+    }
     getDeleted() {
         return this.deleted;
     }
@@ -33,6 +41,9 @@ class Query {
         let found = true;
         if (this.getId()) {
             found = found && user.id == this.getId();
+        }
+        if (this.getPasswordEncrypted()) {
+            found = found && user.password && user.password === this.getPasswordEncrypted();
         }
         if (this.getEmail()) {
             found = found && user.email.toLowerCase() == ((_a = this.getEmail()) === null || _a === void 0 ? void 0 : _a.toLowerCase());

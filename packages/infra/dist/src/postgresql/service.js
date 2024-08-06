@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
 const client_1 = require("@prisma/client");
 const asafe_config_1 = __importDefault(require("@maxialvarez/asafe-config"));
-console.log(" confiu" + asafe_config_1.default.db_uri);
 exports.db = new client_1.PrismaClient({
     datasourceUrl: asafe_config_1.default.db_uri,
     log: ['query', 'info']

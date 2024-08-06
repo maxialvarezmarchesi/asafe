@@ -12,4 +12,8 @@ export async function get(id: Number): Promise<Results> {
     return results;
 }
 
-
+export async function getByQuery(query: Query): Promise<Results> {
+    const results = new Results();
+    results.addUsers(await repository.get(query));
+    return results;
+}

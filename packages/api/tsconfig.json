@@ -115,6 +115,9 @@
   "references": [
     {
       "path": "../app"
+    },
+    {
+      "path": "../config"
     }
   ]
 }

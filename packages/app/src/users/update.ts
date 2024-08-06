@@ -41,7 +41,6 @@ export async function update(user: User): Promise<Results> {
         if (error instanceof Error) {
             result.addOneValidationFailed(error);
         } else {
-            console.log(error);
             result.addOneValidationFailed(new UncaughtError());
         }
     }

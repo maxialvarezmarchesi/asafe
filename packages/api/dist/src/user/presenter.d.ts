@@ -1,10 +1,5 @@
-import { Results } from "@maxialvarez/asafe-app/src/users/entities/Results";
-export type userType = {
-    id: Number | null;
-    name: String;
-    surname: String;
-    email: String;
-};
+import { Results } from "@maxialvarez/asafe-app";
+import { userType } from "../types";
 type errorType = {
     message: String;
     type: String;

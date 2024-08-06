@@ -1,4 +1,5 @@
 import { ApiUserService } from '@maxialvarez/asafe-api';
+import { authAdmin } from '../../authorization/handler';
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from "http";
 
@@ -33,21 +34,25 @@ export const userRoutes: Array<IRoutesOptions> = [
     {
         method: 'GET',
         url: `${basePath}/:id`,
-        handler: doGet
+        handler: doGet,
+        preHandler: authAdmin
     },
     {
         method: 'POST',
         url: `${basePath}/`,
-        handler: doPost
+        handler: doPost,
+        preHandler: authAdmin
     },
     {
         method: 'PUT',
         url: `${basePath}/:id`,
-        handler: doPut
+        handler: doPut,
+        preHandler: authAdmin
     },
     {
         method: 'DELETE',
         url: `${basePath}/:id`,
-        handler: doDelete
+        handler: doDelete,
+        preHandler: authAdmin
     }
 ];

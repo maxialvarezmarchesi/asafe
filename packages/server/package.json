@@ -2,6 +2,7 @@
     "name": "@maxialvarez/asafe-server",
     "version": "1.0.0",
     "main": "dist/src/index.js",
+    "types": "src/fastify/@types/fastify.d.ts",
     "description": "A-SAFE Digital server",
     "author": "Maximiliano Alvarez <maxialvarezmarchesi@gmail.com>",
     "license": "MIT",
@@ -11,6 +12,7 @@
         "start": "node ./dist/src/index.js"
     },
     "dependencies": {
+        "@fastify/bearer-auth": "^9.4.0",
         "@maxialvarez/asafe-api": "*",
         "@maxialvarez/asafe-config": "*",
         "fastify": "^4.28.1"

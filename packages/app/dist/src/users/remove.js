@@ -48,7 +48,6 @@ function remove(user) {
                 result.addOneValidationFailed(error);
             }
             else {
-                console.log(error);
                 result.addOneValidationFailed(new Exceptions_1.UncaughtError());
             }
         }

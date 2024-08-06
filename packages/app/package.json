@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
+    "@maxialvarez/asafe-config": "*",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.3",
     "typescript": "^5.5.4"

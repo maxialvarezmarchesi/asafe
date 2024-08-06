@@ -13,5 +13,9 @@ export default {
     jwt: {
         secret: process.env.JWT_SECRET || defaultValues.jwt.secret,
         algo: process.env.JWT_ALGO || defaultValues.jwt.algo
+    },
+    adminCredentials:{
+        email: process.env.ADMIN_EMAIL || defaultValues.adminCredentials.email,
+        password: process.env.ADMIN_PASSWORD || defaultValues.adminCredentials.password,
     }
 };

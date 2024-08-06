@@ -10,7 +10,7 @@
     "build": "tsc --build",
     "start": "node ./dist/src/index.js",
     "up": "yarn run build && yarn run start",
-    "dev": "nodemon0;"
+    "watch": "yarn run tsc-watch --onSuccess 'node ./dist/src/index.js'"
   },
   "workspaces": [
     "packages/*"
@@ -20,6 +20,7 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "ts-jest": "^29.2.3",
+    "tsc-watch": "^6.2.0",
     "typescript": "^5.5.4"
   },
   "packageManager": "yarn@4.3.1"

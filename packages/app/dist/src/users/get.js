@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.get = get;
+exports.getByQuery = getByQuery;
 const Results_1 = require("./entities/Results");
 const Query_1 = require("./repositories/Query");
 const Service_1 = require("./repositories/Service");
@@ -18,6 +19,13 @@ function get(id) {
     return __awaiter(this, void 0, void 0, function* () {
         const query = new Query_1.Query();
         query.setId(id).setDeleted(false);
+        const results = new Results_1.Results();
+        results.addUsers(yield repository.get(query));
+        return results;
+    });
+}
+function getByQuery(query) {
+    return __awaiter(this, void 0, void 0, function* () {
         const results = new Results_1.Results();
         results.addUsers(yield repository.get(query));
         return results;

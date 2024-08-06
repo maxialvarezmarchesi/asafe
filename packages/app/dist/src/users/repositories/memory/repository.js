@@ -33,7 +33,7 @@ class Repository {
                 user.id = this.nextId();
             }
             if (user.password) {
-                user.password = (0, asafe_utils_1.hashPassword)(user.password);
+                user.password = yield (0, asafe_utils_1.hashPassword)(user.password);
             }
             data.push(user);
             return new Promise(resolve => resolve(user));
@@ -56,7 +56,7 @@ class Repository {
                 userToUpdate.name = user.surname;
             }
             if (user.password) {
-                userToUpdate.password = (0, asafe_utils_1.hashPassword)(user.password);
+                userToUpdate.password = yield (0, asafe_utils_1.hashPassword)(user.password);
             }
             data[index] = userToUpdate;
             return new Promise(resolve => resolve(user));
@@ -68,7 +68,6 @@ class Repository {
             query.setId(user.id).setDeleted(false);
             let userToDelete = (yield this.get(query))[0];
             const index = data.indexOf(userToDelete);
-            console.log(index);
             if (index != -1) {
                 data[index].deleted = true;
                 return true;

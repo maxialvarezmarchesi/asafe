@@ -34,7 +34,7 @@ export class Repository implements IRepository {
     async save(user: User): Promise<User> {
 
         if (user.password) {
-            user.password = hashPassword(user.password);
+            user.password = await hashPassword(user.password);
         }
 
         let userCreated = await dbService.user.create({
@@ -65,11 +65,11 @@ export class Repository implements IRepository {
         }
 
         if (user.surname) {
-            userToUpdate.name = user.surname;
+            userToUpdate.surname = user.surname;
         }
 
         if (user.password) {
-            userToUpdate.password = hashPassword(user.password);
+            userToUpdate.password = await hashPassword(user.password);
         }
 
         let updateUser = await dbService.user.update({
@@ -91,9 +91,7 @@ export class Repository implements IRepository {
 
         const query = new Query();
         query.setId(user.id).setDeleted(false);
-        console.log({
-            where: queryToWhere(query)
-        });
+     
         let deletedUser = await dbService.user.delete({
             where: queryToWhere(query)
         });
@@ -112,22 +110,35 @@ function queryToWhere(query: Query): any {
     }
 
     if (query.getEmail()) {
-        where.email = query.getEmail();
+        where.email = {
+            equals: query.getEmail(),
+            mode: 'insensitive'
+        };
     }
 
     if (query.getDeleted()) {
-        where.email = query.getDeleted();
+        where.delete = query.getDeleted();
     }
     return where;
 
 }
-function buildUserFromDBResult(userFound: { id: number; email: string; name: string | null; surname: string | null; password: string; deleted: boolean; }): User {
+type userFound = {
+    id: number;
+    email: string;
+    name: string | null;
+    surname: string | null;
+    password: string;
+    deleted: boolean;
+};
+
+function buildUserFromDBResult(userFound: userFound): User {
     const user: User = new User();
     user.id = userFound.id;
     user.name = userFound.name?.toString() || '';
     user.surname = userFound.surname?.toString() || '';
     user.email = userFound.email?.toString() || '';
     user.deleted = userFound.deleted;
+    user.password = userFound.password;
     return user;
 }
 
