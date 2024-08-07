@@ -1,5 +1,6 @@
 
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
+import { schema } from './healthcheck.schema';
 
 const basePath = "/";
 
@@ -11,6 +12,7 @@ export const healthcheck: Array<RouteOptions> = [
     {
         method: 'GET',
         url: `${basePath}healthcheck`,
-        handler: get
+        handler: get,
+        schema: schema
     }
-]
+];

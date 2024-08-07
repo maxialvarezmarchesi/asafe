@@ -6,4 +6,4 @@ declare module 'fastify' {
     }
 }
 
-export const up: () => void;
+export const up: () => Promise<void>;

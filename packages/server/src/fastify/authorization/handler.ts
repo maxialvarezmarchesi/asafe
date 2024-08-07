@@ -18,7 +18,7 @@ export const auth = async (request: FastifyRequest, reply: FastifyReply, done: H
         request.tokenValidValue = tokenVerified;
         done();
     } else {
-        reply.code(403).send();
+        reply.code(401).send();
     }
 }
 
@@ -29,11 +29,10 @@ export const authAdmin = async (request: FastifyRequest, reply: FastifyReply, do
     try {
         tokenVerified = await ApiAuthService.tokenizer.verify(token);
     } catch (error) { }
-console.log(tokenVerified);
     if (tokenVerified?.admin) {
         request.tokenValidValue = tokenVerified;
         done();
     } else {
-        reply.code(403).send();
+        reply.code(401).send();
     }
 }

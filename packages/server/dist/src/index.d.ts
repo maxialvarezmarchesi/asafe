@@ -1,4 +1,4 @@
 declare const _default: {
-    up: () => void;
+    up: () => Promise<void>;
 };
 export default _default;

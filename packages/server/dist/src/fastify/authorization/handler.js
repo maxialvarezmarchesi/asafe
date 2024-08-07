@@ -26,7 +26,7 @@ const auth = (request, reply, done) => __awaiter(void 0, void 0, void 0, functio
         done();
     }
     else {
-        reply.code(403).send();
+        reply.code(401).send();
     }
 });
 exports.auth = auth;
@@ -38,13 +38,12 @@ const authAdmin = (request, reply, done) => __awaiter(void 0, void 0, void 0, fu
         tokenVerified = yield asafe_api_1.ApiAuthService.tokenizer.verify(token);
     }
     catch (error) { }
-    console.log(tokenVerified);
     if (tokenVerified === null || tokenVerified === void 0 ? void 0 : tokenVerified.admin) {
         request.tokenValidValue = tokenVerified;
         done();
     }
     else {
-        reply.code(403).send();
+        reply.code(401).send();
     }
 });
 exports.authAdmin = authAdmin;

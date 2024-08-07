@@ -12,11 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.myAccountRoutes = void 0;
 const asafe_api_1 = require("@maxialvarez/asafe-api");
 const handler_1 = require("../../authorization/handler");
+const my_account_schema_1 = require("./my.account.schema");
 const basePath = "/my-account/";
 const doGet = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const id = (_a = request.tokenValidValue._id) !== null && _a !== void 0 ? _a : 0;
-    return reply.send(yield asafe_api_1.ApiUserService.get(id));
+    const response = yield asafe_api_1.ApiUserService.get(id);
+    return reply.send(response[0]);
 });
 const updateProfile = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
@@ -29,12 +31,14 @@ exports.myAccountRoutes = [
         method: 'GET',
         url: `${basePath}`,
         handler: doGet,
-        preHandler: handler_1.auth
+        preHandler: handler_1.auth,
+        schema: my_account_schema_1.schemaMyAccount
     },
     {
         method: 'PUT',
         url: `${basePath}profile`,
         handler: updateProfile,
-        preHandler: handler_1.auth
+        preHandler: handler_1.auth,
+        schema: my_account_schema_1.schemaUpdateProfile
     }
 ];

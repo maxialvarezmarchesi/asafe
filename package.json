@@ -7,9 +7,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "buildAll": "yarn workspaces foreach -A run build",
     "build": "tsc --build",
     "start": "node ./dist/src/index.js",
-    "up": "yarn run build && yarn run start",
+    "up": "yarn run buildAll && yarn run start",
     "watch": "yarn run tsc-watch --onSuccess 'node ./dist/src/index.js'"
   },
   "workspaces": [

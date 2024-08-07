@@ -2,6 +2,7 @@ import { ApiUserService } from '@maxialvarez/asafe-api';
 import { authAdmin } from '../../authorization/handler';
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from "http";
+import { schemaDeleteUser, schemaPostUser, schemaPutUser, schemaUserGetAll, schemaUserGetOne } from './user.schema';
 
 const basePath = "/user";
 
@@ -35,24 +36,35 @@ export const userRoutes: Array<IRoutesOptions> = [
         method: 'GET',
         url: `${basePath}/:id`,
         handler: doGet,
-        preHandler: authAdmin
+        preHandler: authAdmin,
+        schema: schemaUserGetOne
+    },
+    {
+        method: 'GET',
+        url: `${basePath}/`,
+        handler: doGet,
+        preHandler: authAdmin,
+        schema: schemaUserGetAll
     },
     {
         method: 'POST',
         url: `${basePath}/`,
         handler: doPost,
-        preHandler: authAdmin
+        preHandler: authAdmin,
+        schema: schemaPostUser
     },
     {
         method: 'PUT',
         url: `${basePath}/:id`,
         handler: doPut,
-        preHandler: authAdmin
+        preHandler: authAdmin,
+        schema: schemaPutUser
     },
     {
         method: 'DELETE',
         url: `${basePath}/:id`,
         handler: doDelete,
-        preHandler: authAdmin
+        preHandler: authAdmin,
+        schema: schemaDeleteUser
     }
 ];

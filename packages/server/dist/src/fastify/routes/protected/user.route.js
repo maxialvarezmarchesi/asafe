@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.userRoutes = void 0;
 const asafe_api_1 = require("@maxialvarez/asafe-api");
 const handler_1 = require("../../authorization/handler");
+const user_schema_1 = require("./user.schema");
 const basePath = "/user";
 const doGet = (request, reply) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = request.params;
@@ -36,24 +37,35 @@ exports.userRoutes = [
         method: 'GET',
         url: `${basePath}/:id`,
         handler: doGet,
-        preHandler: handler_1.authAdmin
+        preHandler: handler_1.authAdmin,
+        schema: user_schema_1.schemaUserGetOne
+    },
+    {
+        method: 'GET',
+        url: `${basePath}/`,
+        handler: doGet,
+        preHandler: handler_1.authAdmin,
+        schema: user_schema_1.schemaUserGetAll
     },
     {
         method: 'POST',
         url: `${basePath}/`,
         handler: doPost,
-        preHandler: handler_1.authAdmin
+        preHandler: handler_1.authAdmin,
+        schema: user_schema_1.schemaPostUser
     },
     {
         method: 'PUT',
         url: `${basePath}/:id`,
         handler: doPut,
-        preHandler: handler_1.authAdmin
+        preHandler: handler_1.authAdmin,
+        schema: user_schema_1.schemaPutUser
     },
     {
         method: 'DELETE',
         url: `${basePath}/:id`,
         handler: doDelete,
-        preHandler: handler_1.authAdmin
+        preHandler: handler_1.authAdmin,
+        schema: user_schema_1.schemaDeleteUser
     }
 ];

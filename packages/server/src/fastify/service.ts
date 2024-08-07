@@ -1,11 +1,12 @@
 import Config from "@maxialvarez/asafe-config";
 import { PublicRoutes, ProtectedRoutes } from "./routes/routes";
 import { server } from "./server";
+import { initSwagger } from "./swagger";
 
 
-
-export default () => {
-
+export default async () => {
+    await initSwagger();
+    
     server.listen({ port: Config.port }, (err, address) => {
         if (err) {
             console.error(err);
@@ -30,5 +31,7 @@ export default () => {
         })
     });
 
+    await server.ready()
+    server.swagger()
 
 };

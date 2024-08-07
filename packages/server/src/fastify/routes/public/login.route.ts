@@ -1,7 +1,10 @@
 import { ApiAuthService } from '@maxialvarez/asafe-api';
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
+import { schemaLoginAdmin, schemaLoginUser } from './login.schema';
 
 const basePath = "/";
+export const loginUrl = `${basePath}login`;
+export const loginAdminUrl = `${basePath}admin/login`;
 
 const doLogin = async (request: FastifyRequest, reply: FastifyReply) => {
     const data = request.body;
@@ -32,11 +35,13 @@ export const loginRoutes: Array<RouteOptions> = [
     {
         method: 'POST',
         url: `${basePath}login`,
-        handler: doLogin
+        handler: doLogin,
+        schema: schemaLoginUser
     },
     {
         method: 'POST',
         url: `${basePath}admin/login`,
-        handler: doAdminLogin
+        handler: doAdminLogin,
+        schema: schemaLoginAdmin
     }
 ]
