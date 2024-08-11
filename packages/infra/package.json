@@ -7,11 +7,11 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "build": "tsc --build",
+        "build": "prisma generate && yarn run migrate && tsc --build",
         "migrate": "dotenv -e ../../.env -- npx prisma migrate dev --name init"
     },
     "devDependencies": {
-        "@prisma/client": "^5.17.0",
+        "@prisma/client": "^5.18.0",
         "@types/node": "^20.14.12",
         "dotenv-cli": "^7.4.2",
         "prisma": "^5.17.0",

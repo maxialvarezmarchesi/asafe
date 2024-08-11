@@ -7,30 +7,30 @@ import { usersData, buildUserFromUserData } from "../dataset";
 
 
 describe("test memory repository", () => {
-    it("save", () => {
+    it("save", async () => {
 
 
         const repo = new Repository()
         const query = new Query();
         let user = buildUserFromUserData(0);
 
-        repo.save(user);
+        await repo.save(user);
 
         query.setId(usersData[0].id);
-        const resultUser1 = repo.get(query);
+        const resultUser1 = await repo.get(query);
 
         expect(resultUser1[0]?.id).toBe(user.id);
 
         user = buildUserFromUserData(1);
 
-        repo.save(user);
+        await repo.save(user);
 
-        const resultUser2 = repo.get(query);
+        const resultUser2 = await repo.get(query);
         expect(resultUser2[0]?.id).not.toBe(user.id);
 
     });
 
-    it("delete", () => {
+    it("delete", async () => {
 
 
         let user = buildUserFromUserData(0);
@@ -38,19 +38,19 @@ describe("test memory repository", () => {
         const repo = new Repository()
         const query = new Query();
 
-        repo.save(user);
+        await repo.save(user);
 
         user = buildUserFromUserData(1);
-        repo.save(user);
+        await repo.save(user);
         user = buildUserFromUserData(2);
-        repo.save(user);
+        await repo.save(user);
 
-        const deleted = repo.delete(user);
+        const deleted = await repo.delete(user);
 
         expect(deleted).toBe(true);
 
         query.setId(user.id).setDeleted(false);
-        const userDeleted = repo.get(query);
+        const userDeleted = await repo.get(query);
 
         expect(userDeleted).toStrictEqual([]);
 

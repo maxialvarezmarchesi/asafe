@@ -7,11 +7,13 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "installAll": "yarn workspaces foreach -A install",
     "buildAll": "yarn workspaces foreach -A run build",
     "build": "tsc --build",
     "start": "node ./dist/src/index.js",
     "up": "yarn run buildAll && yarn run start",
-    "watch": "yarn run tsc-watch --onSuccess 'node ./dist/src/index.js'"
+    "boot": "yarn run installAll && yarn buildAll",
+    "test": "yarn workspaces foreach -A run test"
   },
   "workspaces": [
     "packages/*"
@@ -21,7 +23,6 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "ts-jest": "^29.2.3",
-    "tsc-watch": "^6.2.0",
     "typescript": "^5.5.4"
   },
   "packageManager": "yarn@4.3.1"

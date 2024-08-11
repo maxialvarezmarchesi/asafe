@@ -16,7 +16,7 @@ export class Repository implements IRepository {
         });
 
         const users: User[] = [];
-        results.forEach(userFound => users.push(buildUserFromDBResult(userFound)));
+        results.forEach((userFound: userFound) => users.push(buildUserFromDBResult(userFound)));
         return new Promise(resolve => resolve(users));
     }
 

@@ -1,6 +1,5 @@
-import { User } from "@maxialvarez/asafe-app/src/users/entities/User";
-import { present } from "../../src/user/presenter";
-import { Results } from "@maxialvarez/asafe-app/src/users/entities/Results";
+import { presentTransaction } from "../../src/user/presenter"
+import { Results, Entity as User } from "@maxialvarez/asafe-app";
 
 describe("test user", () => {
     it("presenter", () => {
@@ -22,16 +21,10 @@ describe("test user", () => {
         const result = new Results();
         result.addOneUser(user);
 
-        expect(present(result)).toStrictEqual([
-            {
-                user: {
-                    id: dataset.id,
-                    name: dataset.name,
-                    surname: dataset.surname,
-                    email: dataset.email
-                },
-                errors: []
-            }]);
+        expect(presentTransaction(result)).toStrictEqual({
+            user: user,
+            errors: []
+        });
 
     });
 });

@@ -22,7 +22,7 @@ class Repository {
                 where: queryToWhere(query)
             });
             const users = [];
-            results.forEach(userFound => users.push(buildUserFromDBResult(userFound)));
+            results.forEach((userFound) => users.push(buildUserFromDBResult(userFound)));
             return new Promise(resolve => resolve(users));
         });
     }
